@@ -51,6 +51,14 @@ class New(models.Model):
     def __str__(self):
         return self.title
 
+    def is_published(self):
+        if self.publish_date < timezone.now() and self.status == "published":
+            return True
+        return False
+    is_published.boolean = True
+    is_published.short_description = "Опубліковано на сайті"
+
+
     class Meta:
         verbose_name = 'новина'
         verbose_name_plural = 'Новини'
