@@ -7,8 +7,7 @@ from unidecode import unidecode
 from .managers import PublishedManager
 from .utils import get_upload_location
 
-
-class New(models.Model):
+class CommonInfo(models.Model):
     STATUS_CHOICES = (
         ('draft', 'Редагується'),
         ('published', 'Опубліковано')
@@ -27,26 +26,9 @@ class New(models.Model):
     objects = models.Manager()
     published = PublishedManager()
 
-    def save(self, *args, **kwargs):
-        if not self.slug:
-            self.slug = self.__create_slug()
-        try:
-            current_new = New.objects.get(pk=self.pk)
-            if current_new.image != self.image:
-                self.image.delete(False)
-        except New.DoesNotExist:
-            pass
-        super().save(*args, **kwargs)
-
     def delete(self, *args, **kwargs):
         self.image.delete(False)
         super().delete(*args, **kwargs)
-
-    def __create_slug(self):
-        slug = slugify(unidecode(self.title))
-        if New.objects.filter(slug=slug).exists():
-            slug = "{}-{}".format(slug, self.id)
-        return slug
 
     def __str__(self):
         return self.title
@@ -58,8 +40,76 @@ class New(models.Model):
     is_published.boolean = True
     is_published.short_description = "Опубліковано на сайті"
 
+    class Meta:
+        abstract = True
+
+class New(CommonInfo):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='news', default=1, verbose_name='користувач')
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = self.__create_slug()
+        try:
+            current_new = New.objects.get(pk=self.pk)
+            if current_new.image != self.image:
+                self.image.delete(False)
+        except New.DoesNotExist:
+            pass
+        super().save(*args, **kwargs)
+
+    def __create_slug(self):
+        slug = slugify(unidecode(self.title))
+        if New.objects.filter(slug=slug).exists():
+            slug = "{}-{}".format(slug, self.id)
+        return slug
 
     class Meta:
         verbose_name = 'новина'
         verbose_name_plural = 'Новини'
         ordering = ("-publish_date",)
+
+
+class Article(CommonInfo):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='articles', default=1, verbose_name='користувач')
+    tags = models.ManyToManyField('Tag', related_name='articles')
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = self.__create_slug()
+        try:
+            current_new = Article.objects.get(pk=self.pk)
+            if current_new.image != self.image:
+                self.image.delete(False)
+        except Article.DoesNotExist:
+            pass
+        super().save(*args, **kwargs)
+
+    def __create_slug(self):
+        slug = slugify(unidecode(self.title))
+        if Article.objects.filter(slug=slug).exists():
+            slug = "{}-{}".format(slug, self.id)
+        return slug
+
+    class Meta:
+        verbose_name = 'стаття'
+        verbose_name_plural = 'статті'
+        ordering = ("-publish_date",)
+
+class Tag(models.Model):
+    name = models.CharField(max_length=25, db_index=True)
+    slug = models.SlugField(max_length=25, unique=True)
+
+    def save(self, *args, **kwargs):
+        self.name = self.name.lower()
+        if not self.slug:
+            self.slug = slugify(unidecode(self.name))
+        super().save(*args, **kwargs)
+
+
+    class Meta:
+        ordering = ("name",)
+        verbose_name = "тег"
+        verbose_name_plural = "теги"
+
+    def __str__(self):
+        return self.name

@@ -1,11 +1,11 @@
 from django.contrib import admin
 from django.utils import timezone
-from .models import New
+from .models import New, Article, Tag
 from .admin_utils import make_published, PublishedListFilter
 
 
 @admin.register(New)
-class NewsAdmin(admin.ModelAdmin):
+class NewAdmin(admin.ModelAdmin):
     list_display = ('__str__', 'publish_date', 'created', 'status', 'is_published')
     prepopulated_fields = {"slug": ("title",)}
     readonly_fields = ('created', 'updated')
@@ -18,3 +18,11 @@ class NewsAdmin(admin.ModelAdmin):
         ("Іформація про дату", {'fields': ['publish_date', 'created', 'updated']}),
         ("Додаткова інформація", {'fields': ['user', 'slug'], 'classes': ['collapse']})
     ]
+
+@admin.register(Article)
+class ArticleAdmin(admin.ModelAdmin):
+    pass
+
+@admin.register(Tag)
+class TagAdmin(admin.ModelAdmin):
+    pass
