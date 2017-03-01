@@ -7,6 +7,7 @@ from unidecode import unidecode
 from .managers import PublishedManager
 from .utils import get_upload_location
 
+
 class CommonInfo(models.Model):
     STATUS_CHOICES = (
         ('draft', 'Редагується'),
@@ -43,6 +44,7 @@ class CommonInfo(models.Model):
     class Meta:
         abstract = True
 
+
 class New(CommonInfo):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='news', default=1, verbose_name='користувач')
 
@@ -71,7 +73,7 @@ class New(CommonInfo):
 
 class Article(CommonInfo):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='articles', default=1, verbose_name='користувач')
-    tags = models.ManyToManyField('Tag', related_name='articles')
+    tags = models.ManyToManyField('Tag', related_name='articles', verbose_name='теги')
 
     def save(self, *args, **kwargs):
         if not self.slug:
@@ -96,15 +98,17 @@ class Article(CommonInfo):
         ordering = ("-publish_date",)
 
 class Tag(models.Model):
-    name = models.CharField(max_length=25, db_index=True)
-    slug = models.SlugField(max_length=25, unique=True)
+    name = models.CharField(max_length=25, db_index=True, verbose_name='тег')
+    slug = models.SlugField(max_length=25, unique=True, verbose_name='URL', blank=True)
+    created = models.DateTimeField(auto_now_add=True,verbose_name="створено")
+    updated = models.DateTimeField(auto_now=True, verbose_name="редаговано")
+
 
     def save(self, *args, **kwargs):
         self.name = self.name.lower()
         if not self.slug:
             self.slug = slugify(unidecode(self.name))
         super().save(*args, **kwargs)
-
 
     class Meta:
         ordering = ("name",)
