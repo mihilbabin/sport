@@ -15,7 +15,7 @@ class CommonInfo(models.Model):
     )
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='news', default=1, verbose_name='користувач')
     image = models.ImageField(blank=True, null=True, upload_to=get_upload_location, verbose_name='зображення')
-    title = models.CharField(max_length=140, unique=True, db_index=True, verbose_name="назва")
+    title = models.CharField(max_length=200, unique=True, db_index=True, verbose_name="назва")
     content = models.TextField(verbose_name="зміст")
     slug = models.SlugField(max_length=140, blank=True, unique=True, verbose_name="URL")
     views = models.PositiveIntegerField(default=0, verbose_name="кількість переглядів")

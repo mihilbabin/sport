@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.utils import timezone
 from .models import New, Article, Tag
-from .admin_utils import make_published, PublishedListFilter
+from .admin_utils import make_published, make_drafted, PublishedListFilter
 
 
 class CommonAdminMixin:
@@ -11,7 +11,8 @@ class CommonAdminMixin:
     search_fields = ('title',)
     date_hierarchy = 'publish_date'
     list_filter = ('status', 'publish_date', PublishedListFilter)
-    actions = [make_published]
+    actions = [make_published, make_drafted]
+    list_per_page = 25
     fieldsets = [
         ("Основні дані", {'fields': ['title', 'content', 'image', 'views', 'status']}),
         ("Іформація про дату", {'fields': ['publish_date', 'created', 'updated']}),
@@ -31,7 +32,7 @@ class ArticleAdmin(CommonAdminMixin, admin.ModelAdmin):
         ("Іформація про дату", {'fields': ['publish_date', 'created', 'updated']}),
         ("Додаткова інформація", {'fields': ['user', 'slug'], 'classes': ['collapse']})
     ]
-    list_filter = ('tags',)
+    list_filter = (PublishedListFilter, 'tags', 'publish_date')
     filter_horizontal = ('tags',)
 
 @admin.register(Tag)

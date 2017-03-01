@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>Статті</h1>
+  {% for article in articles_list %}
+    <div class="article">
+      <a href="{% url 'feed:article_detail' article.slug %}">{{ article.title }}</a>
+    </div>
+  {% endfor %}
+{% endblock %}

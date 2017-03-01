@@ -21,4 +21,8 @@ class PublishedListFilter(admin.SimpleListFilter):
 
 def make_published(modeladmin, request, queryset):
     queryset.update(status='published')
-make_published.short_description = "Позначити новини, як опубліковані"
+make_published.short_description = "Позначити, як опубліковані"
+
+def make_drafted(modeladmin, request, queryset):
+    queryset.update(status='draft')
+make_drafted.short_description = "Позначити, як редаговані"
