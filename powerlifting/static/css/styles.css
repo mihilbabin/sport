@@ -1,0 +1,17 @@
+.navbar-custom {
+  font-weight: 800;
+  text-transform: uppercase;
+  font-size: 12px;
+}
+
+.navbar-custom .nav-wrapper #nav_list li a {
+  text-transform: uppercase;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+
+.main {
+  margin-top: 50px;
+  padding: 20px;
+}

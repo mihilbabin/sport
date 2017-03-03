@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <h1>Головна</h1>
+  <h1>Новини</h1>
   {% for new in news_list %}
     <div class="new">
       <a href="{% url 'feed:new_detail' new.slug %}">{{ new.title }}</a>

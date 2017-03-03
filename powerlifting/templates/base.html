@@ -11,13 +11,14 @@
     <link rel="stylesheet" href="{% static 'css/materialize.min.css' %}">
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <script src="https://use.fontawesome.com/ae05b1f88d.js"></script>
     {% block styles %}
     {% endblock %}
   </head>
   <body>
     {% include "includes/_navbar.html" %}
-    {% block content %}
-    {% endblock %}
+      {% block content %}
+      {% endblock %}
 
 
     <script src="{% static 'js/jquery-2.2.4.min.js' %}"></script>

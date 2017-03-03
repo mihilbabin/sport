@@ -1,6 +1,7 @@
 import os
 from django.db import models
 from django.conf import settings
+from django.core.urlresolvers import reverse
 from django.utils.text import slugify
 from django.utils import timezone
 from unidecode import unidecode
@@ -65,6 +66,9 @@ class New(CommonInfo):
             slug = "{}-{}".format(slug, self.id)
         return slug
 
+    def get_absolute_url(self):
+        return reverse('feed:new_detail', args=(self.slug,))
+
     class Meta:
         verbose_name = 'новина'
         verbose_name_plural = 'Новини'
@@ -97,6 +101,9 @@ class Article(CommonInfo):
         verbose_name_plural = 'статті'
         ordering = ("-publish_date",)
 
+    def get_absolute_url(self):
+        return reverse('feed:article_detail', args=(self.slug,))
+
 class Tag(models.Model):
     name = models.CharField(max_length=25, db_index=True, verbose_name='тег')
     slug = models.SlugField(max_length=25, unique=True, verbose_name='URL', blank=True)
@@ -107,7 +114,7 @@ class Tag(models.Model):
     def save(self, *args, **kwargs):
         self.name = self.name.lower()
         if not self.slug:
-            self.slug = slugify(unidecode(self.name))
+            self.slug = slugify(unidecode(self.name))[:130]
         super().save(*args, **kwargs)
 
     class Meta:

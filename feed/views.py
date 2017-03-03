@@ -3,9 +3,13 @@ from .models import New, Article
 from .mixins import FilterQuerysetMixin, UpdateObjectMixin
 
 
-class IndexView(FilterQuerysetMixin, ListView):
+class IndexView(ListView):
+    template_name = 'index.html'
+    context_object_name = 'latest_news'
+    queryset = New.published.all()[:3]
+
+class NewListView(FilterQuerysetMixin, ListView):
     context_object_name = 'news_list'
-    template_name = 'feed/index.html'
     model = New
 
 class ArticleListView(FilterQuerysetMixin, ListView):
