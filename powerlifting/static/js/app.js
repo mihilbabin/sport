@@ -4,6 +4,7 @@ $(document).ready(function () {
   setInterval(function(){
     $('.carousel').carousel('next');
   }, 5000);
+  $('select').material_select();
   makeActive();
 });
 

@@ -1,0 +1,25 @@
+<footer class=" black page-footer">
+         <div class="container">
+           <div class="row">
+             <div class="col l6 s12">
+               <h5 class="white-text">Заголовок</h5>
+               <p class="grey-text text-lighten-4">Текст Текст Текст Текст</p>
+             </div>
+             <div class="col l4 offset-l2 s12">
+               <h5 class="white-text">Посилання</h5>
+               <ul>
+                 <li><a class="grey-text text-lighten-3" href="{% url 'feed:news_list' %}">Новини</a></li>
+                 <li><a class="grey-text text-lighten-3" href="{% url 'feed:articles_list' %}">Статті</a></li>
+                 <li><a class="grey-text text-lighten-3" href="{% url 'contact' %}">Контакти</a></li>
+                 <li><a class="grey-text text-lighten-3" href="{% url 'about' %}">Про нас</a></li>
+               </ul>
+             </div>
+           </div>
+         </div>
+         <div class="footer-copyright">
+           <div class="container">
+           © {% now 'Y' %} Всі права захищено.
+           <a class="grey-text text-lighten-4 right" target='_blank' href="http://www.power-committee.com.ua/">Сайт федерації UPC</a>
+           </div>
+         </div>
+       </footer>

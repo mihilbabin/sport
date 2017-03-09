@@ -1,4 +1,5 @@
 import os
+import random
 from django.db import models
 from django.conf import settings
 from django.core.urlresolvers import reverse
@@ -63,7 +64,7 @@ class New(CommonInfo):
     def __create_slug(self):
         slug = slugify(unidecode(self.title))
         if New.objects.filter(slug=slug).exists():
-            slug = "{}-{}".format(slug, self.id)
+            slug = "{}-{}".format(slug, random.randint(1, len(slug)))
         return slug
 
     def get_absolute_url(self):
@@ -93,7 +94,7 @@ class Article(CommonInfo):
     def __create_slug(self):
         slug = slugify(unidecode(self.title))
         if Article.objects.filter(slug=slug).exists():
-            slug = "{}-{}".format(slug, self.id)
+            slug = "{}-{}".format(slug, random.randint(1, len(slug)))
         return slug
 
     class Meta:

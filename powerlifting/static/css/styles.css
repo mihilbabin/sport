@@ -11,7 +11,24 @@
   letter-spacing: 1px;
 }
 
+.brand-logo span {
+  color: red;
+  font-size: 0.8rem;
+  font-style: italic;
+  margin-left: -20px;
+  transform: rotate(-25deg);
+}
+
+#nav_list li.active {
+  background-color: red;
+}
+
+.content {
+  min-height: 768px;
+}
+
 .main {
   margin-top: 50px;
+  margin-bottom: 50px;
   padding: 20px;
 }

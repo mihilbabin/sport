@@ -17,10 +17,13 @@
   </head>
   <body>
     {% include "includes/_navbar.html" %}
+    <div class="content">
+
       {% block content %}
       {% endblock %}
+    </div>
 
-
+    {% include "includes/_footer.html" %}
     <script src="{% static 'js/jquery-2.2.4.min.js' %}"></script>
     <script src="{% static 'js/materialize.min.js' %}"></script>
     <script src="{% static 'js/app.js' %}"></script>
