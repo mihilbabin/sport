@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="main container z-depth-5">
+
+  <h3>Відео</h3>
+  {% for video in videos_list %}
+  <div class="video-container">
+    <iframe width="853" height="480" src="{{ video.url }}" frameborder="0" allowfullscreen></iframe>
+  </div>
+  {% endfor %}
+{% endblock %}

@@ -1,19 +1,13 @@
 {% extends "base.html" %}
 {% load staticfiles %}
 {% block content %}
-  {% include "includes/_carousel.html" %}
   <div class="container main z-depth-5">
+    {% include "includes/_carousel.html" %}
     <div class="row">
       <div class="col m6 s12">
-        <h3>Відео</h3>
-        <div class="video-container">
-          <iframe width="853" height="480" src="https://www.youtube.com/embed/bciH90PO8cY" frameborder="0" allowfullscreen></iframe>
-        </div>
-      </div>
-      <div class="col m6 s12">
-        <h3>Свіжі новини</h3>
+        <h4><a href="{{ 'feed:news_list' }}">Свіжі новини</a></h4>
         {% for new in latest_news %}
-        <div class="card">
+        <div class="card hoverable">
           <div class="card-image">
             {% if new.image %}
               <img src="{{ new.image.url }}" alt="">
@@ -34,6 +28,13 @@
         <p>Немає новин.</p>
         {% endfor %}
       </div>
+      <div class="col m6 s12">
+        <h4><a href="{% url 'gallery:videos_list' %}">Відео</a></h4>
+        <div class="video-container hoverable">
+          <iframe width="853" height="480" src="https://www.youtube.com/embed/bciH90PO8cY" frameborder="0" allowfullscreen></iframe>
+        </div>
+      </div>
+
     </div>
   </div>
 {% endblock %}

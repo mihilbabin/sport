@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="main container z-depth-5">
+
+  <h3>{{ album.title }}</h3>
+  <div class="row">
+
+    {% for photo in album.photos.all %}
+    <div class="col s3">
+      <img class="materialboxed responsive-img" data-caption="{{ photo.title }}" src="{{ photo.image.url }}" alt="">
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

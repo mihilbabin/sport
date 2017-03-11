@@ -5,17 +5,19 @@
      <ul id="nav_list" class="right hide-on-med-and-down">
        <li><a href="{% url 'feed:news_list' %}">Новини</a></li>
        <li><a href="{% url 'feed:articles_list' %}">Статті</a></li>
-       <li><a href="{% url 'contact' %}">Контакти</a></li>
+       <li><a href="{% url 'gallery:gallery' %}">Галерея</a></li>
        <li><a href="{% url 'about' %}">Про нас</a></li>
+       <li><a href="{% url 'contact' %}">Контакти</a></li>
      </ul>
      <ul class="side-nav" id="mobile-demo">
        <li><a href="{% url 'index' %}"><i class="fa fa-home" aria-hidden="true"></i>Головна</a></li>
        <li class="divider"></li>
        <li><a href="{% url 'feed:news_list' %}"><i class="fa fa-newspaper-o" aria-hidden="true"></i>Новини</a></li>
        <li><a href="{% url 'feed:articles_list' %}"><i class="fa fa-list-ul" aria-hidden="true"></i>Статті</a></li>
+       <li><a href="{% url 'gallery:gallery' %}"><i class="fa fa-picture-o" aria-hidden="true"></i> Галерея</a></li>
        <li class="divider"></li>
-       <li><a href="{% url 'contact' %}"><i class="fa fa-users" aria-hidden="true"></i>Контакти</a></li>
        <li><a href="{% url 'about' %}"><i class="fa fa-info-circle" aria-hidden="true"></i>Про нас</a></li>
+       <li><a href="{% url 'contact' %}"><i class="fa fa-users" aria-hidden="true"></i>Контакти</a></li>
      </ul>
    </div>
  </nav>

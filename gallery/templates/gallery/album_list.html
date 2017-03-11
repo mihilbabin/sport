@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="main container z-depth-5">
+
+  <h3>Альбоми</h3>
+  {% for album in albums_list %}
+  <div class="">
+    <a href="{{ album.get_absolute_url }}"><h4>{{ album.title }}</h4></a>
+  </div>
+  {% endfor %}
+
+</div>
+{% endblock %}

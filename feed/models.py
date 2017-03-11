@@ -15,7 +15,6 @@ class CommonInfo(models.Model):
         ('draft', 'Редагується'),
         ('published', 'Опубліковано')
     )
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='news', default=1, verbose_name='користувач')
     image = models.ImageField(blank=True, null=True, upload_to=get_upload_location, verbose_name='зображення')
     title = models.CharField(max_length=200, unique=True, db_index=True, verbose_name="назва")
     content = models.TextField(verbose_name="зміст")
